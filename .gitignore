@@ -174,3 +174,4 @@ cython_debug/
 .pypirc
 
 interactive_figures
+settings.json
