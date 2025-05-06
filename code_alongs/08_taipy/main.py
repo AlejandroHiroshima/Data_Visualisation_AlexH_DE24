@@ -5,20 +5,26 @@ import plotly.express as px
 df = px.data.gapminder()
 fig = px.line(df.query("country == 'Sweden'"), x = "year", y = "pop")
 
-slider_value = 20
-selected_fruit = "avocado"
-number1=5
-number2=8
-sum_ = number1 + number2
+slider_value = 0
+selected_fruit = ""
+number1=1
+number2=1
+sum_add = number1 + number2
+sum_mult = number1 * number2
+sum_sub = number1 - number2
+sum_div = number1 / number2
 
 def perform_calculation(state):
-    print(state.number1)
-
-    state.sum_ = int(state.number1) + int(state.number2)
-    ## Todo: add division, multiplication and subtraction
+    state.sum_add = int(state.number1) + int(state.number2)
+    state.sum_mult = int(state.number1) * int(state.number2)
+    state.sum_sub = int(state.number1) - int(state.number2)
+    state.sum_div = int(state.number1) / int(state.number2)
 
 def clear_results(state):
-    state.sum_= ""
+    state.sum_add = 0
+    state.sum_mult = 0
+    state.sum_sub = 0
+    state.sum_div = 0
 
 with tgb.Page() as page:
     with tgb.part(class_name="container card"):
@@ -56,7 +62,10 @@ with tgb.Page() as page:
                         class_name= "plain",# annan färg på knappen
                         on_action=perform_calculation
                         ) 
-                tgb.text("{number1} + {number2} = {sum_}")
+                tgb.text("{number1} + {number2} = {sum_add}")
+                tgb.text("{number1} * {number2} = {sum_mult}")
+                tgb.text("{number1} - {number2} = {sum_sub}")
+                tgb.text("{number1} / {number2} = {sum_div}")
             with tgb.part() as column_data:
                 tgb.table("{df}", page_size= 20)
                 tgb.chart(figure = "{fig}")
